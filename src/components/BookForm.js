@@ -1,11 +1,19 @@
 import { useState } from 'react'
 
+// firebase
+import { db } from '../firebase/Config'
+import { collection, addDoc } from 'firebase/firestore'
+
 export default function BookForm() {
   const [newBook, setNewBook] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(newBook)
+    
+    await addDoc(collection(db, 'books'), {
+      title: newBook
+    })
 
     setNewBook('')
   }
